@@ -1,3 +1,7 @@
 <div class="card-login">
-  <app-login class="login"></app-login>
+  @if (isLogin) {
+    <app-login (clickCadastro)="alternarParaCadastro()"></app-login>
+  } @else {
+    <app-cadastro (clickLogin)="alternarParaLogin()"></app-cadastro>
+  }
 </div>
