@@ -1,0 +1,141 @@
+.login{
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+}
+
+input{
+  margin: 5px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #8d8a8a;
+  border: none;
+  height: 60px;
+  padding-left: 10px;
+  height: 35px
+}
+
+input::placeholder{
+  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  font-size: larger;
+  font-weight: 500;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 34px;
+  color: white;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #8d8a8a;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  width: 400px;
+  height: 50px;
+}
+
+.input-container .icon {
+  color: #8B0000;
+  margin-right: 10px;
+  font-size: 25px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.cadeado{
+  width: 30px;
+}
+
+.carta{
+  width: 30px;
+}
+.remember remember{
+  width: 10px;
+}
+.check-remember{
+    display: flex;
+    align-items:center;
+    gap: 8px;
+  }
+
+label{
+  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.check-remember input[type="checkbox"] {
+  appearance: none; /* Remove o estilo padrão */
+  width: 18px;
+  height: 18px;
+  background-color: #8d8a8a; /* Cor padrão */
+  border: 2px solid #8d8a8a;
+  border-radius: 4px; /* Deixa com bordas arredondadas (opcional) */
+  cursor: pointer;
+  position: relative;/* Cor personalizada da checkbox (se for suportado pelo navegador) */
+}
+
+.check-remember input[type="checkbox"]:checked {
+  background-color: #8B0000; /* Cor quando marcado */
+  border-color: #8B0000;
+}
+.check-remember input[type="checkbox"]:checked::after {
+  content: '✔';
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  top: 0;
+  left: 3px;
+}
+
+.button-login{
+  height: 72px;
+  width: 420px;
+  border-radius: 15px;
+  background-color: #8d8a8a;
+  border:none;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.register{
+  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#signin{
+  font-family: 'Barlow Condensed', sans-serif;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#texto-signup{
+  margin-top: 10px;
+}

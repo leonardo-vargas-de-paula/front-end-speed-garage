@@ -1,0 +1,28 @@
+<div class="login">
+  <h1>CREATE AN ACCOUNT</h1>
+  <form>
+    <div class="input-container">
+      <span class="icon"><img src="user.svg" id="user" /> </span>
+      <input type="text" placeholder="USER" />
+    </div>
+    <div class="input-container">
+      <span class="icon"><img src="carta.svg" id="carta" /> </span>
+      <input type="email" placeholder="EMAIL" />
+    </div>
+    <div class="input-container">
+      <span class="icon"><img src="cadeado.svg" id="cadeado" /></span>
+      <input type="password" placeholder="PASSWORD" />
+    </div>
+    <div class="input-container">
+      <span class="icon"><img src="cadeado.svg" id="cadeado" /></span>
+      <input type="password" placeholder="PASSWORD" />
+    </div>
+    <button class="button-login">LOGIN</button>
+    <div class="register">
+      <p id="texto-signup">
+        ALREADY HAVE AN ACCOUNT?
+        <a (click)="voltarParaLogin()" id="signin">SIGN IN</a>
+      </p>
+    </div>
+  </form>
+</div>

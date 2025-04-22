@@ -1,5 +1,7 @@
 <div class="card-login">
-    <h1>LOGIN PAGE</h1>
-    <input type="text">
-    <input type="text">
+  @if (isLogin) {
+    <app-login (clickCadastro)="alternarParaCadastro()"></app-login>
+  } @else {
+    <app-cadastro (clickLogin)="alternarParaLogin()"></app-cadastro>
+  }
 </div>
