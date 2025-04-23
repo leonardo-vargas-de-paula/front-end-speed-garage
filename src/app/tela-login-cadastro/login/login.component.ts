@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class LoginComponent {
   @Output() clickCadastro = new EventEmitter<void>();
+  constructor(private router: Router) {}
 
+  fazerLogin() {
+    this.router.navigate(['/home']);
+  }
   irParaCadastro() {
     this.clickCadastro.emit();
   }
