@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  background-color: #ab0302;
+  margin: 0;
+}
+
+.search{
+  width: 400px;
+}
