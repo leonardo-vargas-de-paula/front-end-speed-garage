@@ -3,12 +3,13 @@
 .form button {
   border: none;
   background: none;
-  color: #8b8ba7;
+  color: black;
+  cursor: pointer;
 }
 
 .form {
   width: 100%;
-  height: 40px;
+  height: 50px;
   display: flex;
   align-items: center;
   padding-inline: 0.8em;
@@ -31,6 +32,12 @@
   outline: none;
 }
 
+.input::placeholder {
+  color: #ab0302;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
 
 .form svg {
   width: 17px;
@@ -42,3 +49,4 @@
   background: none;
   display: none;
 }
+
