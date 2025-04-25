@@ -13,4 +13,8 @@ export class ReviewService {
   getReviews(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getFullReview(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
 }

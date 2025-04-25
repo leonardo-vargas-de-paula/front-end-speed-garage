@@ -14,4 +14,5 @@ export class HeaderComponent {
   entrarPerfil() {
     this.router.navigate(['/profile']);
   }
+
 }
