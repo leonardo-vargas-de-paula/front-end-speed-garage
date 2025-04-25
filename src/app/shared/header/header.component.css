@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  height: 10vh;
+  background-color: #ab0302;
+  gap: 80px;
+}
+
+.search{
+  width: 400px;
+}
+
+img{
+  width: 90px;
+}
+
+.botaoHeader{
+  color: white;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.logo{
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  cursor: pointer;
+}
+
+#titulo{
+  padding-left: 20px;
+}

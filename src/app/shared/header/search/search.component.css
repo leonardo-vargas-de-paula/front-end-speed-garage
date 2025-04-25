@@ -1,0 +1,52 @@
+
+
+.form button {
+  border: none;
+  background: none;
+  color: black;
+  cursor: pointer;
+}
+
+.form {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: 30px;
+  background: #fff;
+  border: none;
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #ab0302;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
+
+.reset {
+  border: none;
+  background: none;
+  display: none;
+}
+
