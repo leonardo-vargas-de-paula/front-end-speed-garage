@@ -1,0 +1,13 @@
+<div class="review-container">
+  @for (review of reviews; track review.id) {
+    <app-card
+      [carModel]="review.carModel"
+      [rating]="review.rating"
+      [votes]="review.votes"
+      [author]="review.author"
+      [shortReview]="review.shortReview">
+    </app-card>
+  } @empty {
+    <p>No reviews available</p>
+  }
+</div>
