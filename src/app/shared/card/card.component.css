@@ -4,4 +4,34 @@
   background-color: #B8B8B8;
   border-radius: 20px;
   margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2{
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ab0302;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 0px;
+}
+
+#rvLine{
+  font-family: 'Barlow Condensed', sans-serif;
+  margin-bottom: 0px;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.read-more-btn{
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  color: #ab0302;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 0px;
+  text-decoration: underline;
+  cursor:pointer;
 }
