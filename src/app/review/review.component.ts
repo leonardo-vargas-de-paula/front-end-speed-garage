@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewService } from '../review.service';
+import { HeaderComponent } from "../shared/header/header.component";
 
 @Component({
   selector: 'app-review',
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
 })
@@ -13,7 +14,8 @@ export class ReviewComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -23,5 +25,9 @@ export class ReviewComponent {
         this.review = review;
       });
     }
+  }
+
+  voltarHome() {
+    this.router.navigate(['/home']);
   }
 }
