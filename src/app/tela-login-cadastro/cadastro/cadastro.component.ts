@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   styleUrl: './cadastro.component.css'
 })
 export class CadastroComponent {
-  constructor(private router: Router) { }
+  @Output() clickLogin = new EventEmitter<void>();
 
-  voltarParaLogin() {
-    this.router.navigate(['']);
-  }
+voltarParaLogin() {
+  this.clickLogin.emit();
+}
 }
