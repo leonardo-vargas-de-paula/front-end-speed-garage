@@ -3,7 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
 # Deploy do front end
-Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/).
+Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/). Atualmente sem funcionalidades de banco, mas funciona se inicializar o json-server localmente (mais explicações adiante).
 
 # Link do repositório
 
