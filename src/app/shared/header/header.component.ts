@@ -15,4 +15,8 @@ export class HeaderComponent {
     this.router.navigate(['/profile']);
   }
 
+  voltarHome(){
+    this.router.navigate(['/home']);
+  }
+
 }
