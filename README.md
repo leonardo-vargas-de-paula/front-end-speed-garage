@@ -34,4 +34,10 @@ Caso o json server não funcione mesmo rodando o projeto localmente pode-se troc
 ```bash
 json-server --watch db.json --port <PORTA>
 ```
+E troque a porta na url em review.service.ts:
+
+```bash
+private apiUrl = 'http://localhost:<PORTA>/review';
+```
+
 Se mesmo assim não funcionar, pare de rodar o programa, feche a IDE que está utilizando e inicie novamente o banco de dados e o projeto.
