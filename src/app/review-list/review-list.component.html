@@ -1,6 +1,7 @@
 <div class="review-container">
   @for (review of reviews; track review.id) {
     <app-card
+      [id]="review.id"
       [carModel]="review.carModel"
       [rating]="review.rating"
       [votes]="review.votes"

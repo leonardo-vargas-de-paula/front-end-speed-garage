@@ -100,7 +100,7 @@ label{
   left: 3px;
 }
 
-.button-login{
+.button-signup{
   height: 72px;
   width: 420px;
   border-radius: 15px;
@@ -115,6 +115,7 @@ label{
   color: white;
   font-size: 30px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .register{

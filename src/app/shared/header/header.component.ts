@@ -9,9 +9,16 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   entrarPerfil() {
     this.router.navigate(['/profile']);
   }
+
+  voltarHome() {
+    this.router.navigate(['/home']);
+  }
+
 }
+
+

@@ -1,0 +1,63 @@
+
+.review-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background-color: #B8B8B8 ;
+  width: 90%;
+  height: 80vh;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 35px;
+  border-radius: 40px;
+  padding: 20px;
+}
+
+.container{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-review{
+  text-wrap: wrap;
+  max-width: 350px;
+}
+
+.content{
+  width: 50%;
+}
+
+#botaoVoltar{
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  color: #ab0302;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 0px;
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+h1{
+  color: #ab0302;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.5rem;
+  font-weight:900;
+  margin: 0%;
+}
+
+.author{
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.rating{
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.full-review{
+  font-family: 'Barlow Condensed', sans-serif;
+}
