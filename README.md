@@ -3,7 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
 # Deploy do front end
-Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/). Atualmente esta sem funcionalidades de banco.
+Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/).
 
 # Link do repositório
 
@@ -26,3 +26,12 @@ Caso queira iniciar um server local para visualizar o projeto, utilize o seguint
 ```bash
 ng serve
 ```
+
+# Possíveis erros
+
+Caso o json server não funcione mesmo rodando o projeto localmente pode-se trocar a porta que ele utiliza:
+
+```bash
+json-server --watch db.json --port <PORTA>
+```
+Se mesmo assim não funcionar, pare de rodar o programa, feche a IDE que está utilizando e inicie novamente o banco de dados e o projeto.
