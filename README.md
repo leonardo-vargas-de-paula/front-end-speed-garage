@@ -13,9 +13,16 @@ Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/).
 
 Atualmente o protótipo está utilizando [json-server](https://www.npmjs.com/package/json-server) para realizar o teste e implementação de algumas funcionalidades.
 
-Utilize o comando a seguir para inicializar a API fake.
+Utilize o comando a seguir para inicializar a API fake:
 
 ```bash
 json-server --watch db.json
 ```
 
+# Servidor local
+
+Caso queira iniciar um server local para visualizar o projeto, utilize o seguinte comando:
+
+```bash
+ng serve
+```
