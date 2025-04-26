@@ -113,6 +113,7 @@ label{
   color: white;
   font-size: 30px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .register{

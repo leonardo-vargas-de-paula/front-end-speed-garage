@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -7,9 +8,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './cadastro.component.css'
 })
 export class CadastroComponent {
-  @Output() clickLogin = new EventEmitter<void>();
+  constructor(private router: Router) { }
 
-voltarParaLogin() {
-  this.clickLogin.emit();
-}
+  voltarParaLogin() {
+    this.router.navigate(['']);
+  }
 }
