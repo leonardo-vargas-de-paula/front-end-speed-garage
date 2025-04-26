@@ -4,3 +4,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 # Deploy do front end
 Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/).
+
+# Link do repositório
+
+[https://github.com/leonardo-vargas-de-paula/front-end-speed-garage](https://github.com/leonardo-vargas-de-paula/front-end-speed-garage)
+
+# Banco
+
+Atualmente o protótipo está utilizando [json-server](https://www.npmjs.com/package/json-server) para realizar o teste e implementação de algumas funcionalidades.
+
+Utilize o comando 
