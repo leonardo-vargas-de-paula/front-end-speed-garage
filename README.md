@@ -16,7 +16,7 @@ Atualmente o protótipo está utilizando [json-server](https://www.npmjs.com/pac
 Utilize o comando a seguir para inicializar a API fake:
 
 ```bash
-json-server --watch db.json
+npx json-server --watch db.json
 ```
 
 # Servidor local
@@ -32,7 +32,7 @@ ng serve
 Caso o json server não funcione mesmo rodando o projeto localmente pode-se trocar a porta que ele utiliza:
 
 ```bash
-json-server --watch db.json --port <PORTA>
+npx json-server --watch db.json --port <PORTA>
 ```
 E troque a porta na url em review.service.ts:
 
