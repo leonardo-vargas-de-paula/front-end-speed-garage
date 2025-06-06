@@ -19,6 +19,9 @@ export class HeaderComponent {
     this.router.navigate(['/home']);
   }
 
+  entrarNewReview() {
+    this.router.navigate(['/newreview']);
+  }
 }
 
 

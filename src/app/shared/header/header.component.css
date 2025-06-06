@@ -11,9 +11,6 @@
   width: 400px;
 }
 
-img{
-  width: 90px;
-}
 
 .botaoHeader{
   color: white;
@@ -28,6 +25,25 @@ img{
   align-items:center;
   justify-content:center;
   cursor: pointer;
+  width: 100px;
+}
+
+img{
+  width: 60px;
+}
+
+@media(max-width: 1012px) {
+  .logo{
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  cursor: pointer;
+  width: 70px;
+}
+  img{
+  width: 0px;
+}
+
 }
 
 #titulo{
