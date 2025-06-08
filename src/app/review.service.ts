@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:3000/review';
+  private apiUrl = 'http://127.0.0.1:8000/api/reviews';
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +15,6 @@ export class ReviewService {
   }
 
   getFullReview(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get(`${this.apiUrl}/${id}/`);
   }
 }
