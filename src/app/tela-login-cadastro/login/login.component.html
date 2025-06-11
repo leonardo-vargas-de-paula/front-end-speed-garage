@@ -1,22 +1,52 @@
 <div class="login">
   <h1>LOGIN PAGE</h1>
-  <form>
+  <form (ngSubmit)="fazerLogin()"> <!-- Form submit integrado -->
     <div class="input-container">
-      <span class="icon"><img src="carta.svg" class="carta"> </span>
-      <input type="email" placeholder="EMAIL" />
+      <span class="icon"><img src="carta.svg" class="carta" alt="Email icon"></span>
+      <input type="email"
+             placeholder="USERNAME"
+             [ngModel]="username()"
+             (ngModelChange)="username.set($event)"
+             name="username"
+             required>
     </div>
 
     <div class="input-container">
-      <span class="icon"><img src="cadeado.svg" class="cadeado"></span>
-      <input type="password" placeholder="PASSWORD" />
+      <span class="icon"><img src="cadeado.svg" class="cadeado" alt="Password icon"></span>
+      <input type="password"
+             placeholder="PASSWORD"
+             [ngModel]="password()"
+             (ngModelChange)="password.set($event)"
+             name="password"
+             required>
     </div>
+
     <div class="check-remember">
-      <input type="checkbox" name="remember" clas="remember" id="remember">
-      <label>REMEMBER ME</label>
+      <input type="checkbox" name="remember" class="remember" id="remember">
+      <label for="remember">REMEMBER ME</label>
     </div>
-    <button (click)="fazerLogin()" class="button-login" >LOGIN</button>
+
+    <button type="submit"
+            class="button-login"
+            [disabled]="isLoading()">
+      @if (isLoading()) {
+        <span>LOADING...</span>
+      } @else {
+        <span>LOGIN</span>
+      }
+    </button>
+
     <div class="register">
-      <p id = "texto-signup">NOT A MEMBER? <a (click)="irParaCadastro()" id = "signup">SIGN UP NOW</a></p>
+      <p id="texto-signup">
+        NOT A MEMBER?
+        <a (click)="irParaCadastro()" id="signup">SIGN UP NOW</a>
+      </p>
     </div>
   </form>
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
 </div>
