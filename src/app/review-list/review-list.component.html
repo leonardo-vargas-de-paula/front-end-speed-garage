@@ -2,11 +2,11 @@
   @for (review of reviews; track review.id) {
     <app-card
       [id]="review.id"
-      [carModel]="review.carModel"
-      [rating]="review.rating"
+      [carModel]="review.carro_nome"
+      [rating]="review.avaliacao"
       [votes]="review.votes"
-      [author]="review.author"
-      [shortReview]="review.shortReview">
+      [author]="review.usuario_nome"
+      [shortReview]="review.shortReview ">
     </app-card>
   } @empty {
     <p>No reviews available</p>

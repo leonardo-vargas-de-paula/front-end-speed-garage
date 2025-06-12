@@ -1,39 +1,53 @@
 <app-header></app-header>
 <div class="container">
-    <div class="review-card">
-        <div class="content">
-            <h1>NEW REVIEW</h1>
-            <div class="custom-select-container">
-                <span class="custom-arrow">&#9654;</span> <select class="styled-select">
-                    <option selected disabled>SELECT A BRAND</option>
-                    <option value="brand1">Brand 1</option>
-                </select>
-            </div>
-            <div class="custom-select-container">
-                <span class="custom-arrow">&#9654;</span> <select class="styled-select">
-                    <option selected disabled>SELECT A BRAND</option>
-                    <option value="brand1">Brand 1</option>
-                </select>
-            </div>
-            <div class="custom-select-container">
-                <span class="custom-arrow">&#9654;</span> <select class="styled-select">
-                    <option selected disabled>SELECT A BRAND</option>
-                    <option value="brand1">Brand 1</option>
-                </select>
-            </div>
-            <div class="containerText">
-                <span id="text">LEAVE YOUR HATING: </span>
-            </div>
-            <textarea ut type="text" placeholder="Review:"></textarea>
-            <div class="containerText">
-                <span id="text">When its allready, Submit it <a id="submit">RIGHT HERE</a></span>
-            </div>
-            <a id="botaoVoltar" (click)="voltarHome()"><i class="fa-solid fa-arrow-left"
-                    style="color: #ab0302; margin-right: 5px;"></i>BACK TO REVIEWS</a>
-        </div>
-        <div class="image-card">
-            <input type="file">
-        </div>
+  <div class="review-card">
+    <div class="content">
+      <h1>NEW REVIEW</h1>
+      <div class="custom-select-container">
+        <span class="custom-arrow">&#9654;</span>
+        <select class="styled-select">
+          <option selected disabled>SELECT A BRAND</option>
+          <option value="brand1">Brand 1</option>
+        </select>
+      </div>
+      <div class="custom-select-container">
+        <span class="custom-arrow">&#9654;</span>
+        <select class="styled-select">
+          <option selected disabled>SELECT A MODEL</option>
+          <option value="brand1">Brand 1</option>
+        </select>
+      </div>
+      <div class="custom-select-container">
+        <span class="custom-arrow">&#9654;</span>
+        <select class="styled-select">
+          <option selected disabled>SELECT A YEAR OF FABRICATION</option>
+          <option value="brand1">Brand 1</option>
+        </select>
+      </div>
+      <div class="containerText">
+        <span id="text">LEAVE YOUR HATING: </span>
+      </div>
+      <textarea ut type="text" placeholder="Review:"></textarea>
+      <div class="containerText">
+        <span id="text"
+          >When its allready, Submit it <a id="submit">RIGHT HERE</a></span
+        >
+      </div>
+      <a id="botaoVoltar" (click)="voltarHome()"
+        ><i
+          class="fa-solid fa-arrow-left"
+          style="color: #ab0302; margin-right: 5px"
+        ></i
+        >BACK TO REVIEWS</a
+      >
     </div>
-
+    <div class="image-card">
+      @if (imagePreview()) {
+      <div class="preview-container">
+        <img [src]="imagePreview()" alt="Prévia da imagem selecionada" />
+      </div>
+      }
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+  </div>
 </div>
