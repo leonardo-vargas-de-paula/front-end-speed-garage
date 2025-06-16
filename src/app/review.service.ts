@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ReviewComponent } from './review/review.component';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
-  private apiUrl = 'http://127.0.0.1:8000/api/reviews';
+  private apiUrl = 'http://localhost:8000/api/reviews';
 
   constructor(
     private http: HttpClient,
@@ -16,28 +17,27 @@ export class ReviewService {
   ) { }
 
   getReviews(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => {
+        return response.results || [];
+      })
+    );
   }
-
 
 
   getFullReview(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}/`);
   }
 
-  getMyReviews(): Observable<ReviewComponent[]> {
+  getMyReviews(): Observable<any[]> {
     const token = this.authService.getToken();
-
-    // Se o usuário não estiver logado, retorna um array vazio sem chamar a API.
     if (!token) {
-      return of([]); // 'of' cria um Observable que emite um valor e completa.
+      return of([]); 
     }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    // Chama o endpoint que criamos no Django
-    return this.http.get<ReviewComponent[]>(`${this.apiUrl}/my-reviews/`, { headers });
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    
+    return this.http.get<any>(`${this.apiUrl}`, { headers }).pipe(
+        map(response => response.results || [])
+    );
   }
 }
