@@ -16,7 +16,7 @@ export interface Critica {
   providedIn: 'root'
 })
 export class CriticaService {
-  private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://localhost:8000/api/';
 
   constructor(
     private http: HttpClient,

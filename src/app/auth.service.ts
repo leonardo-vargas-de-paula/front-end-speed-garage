@@ -35,15 +35,27 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://localhost:8000/api/';
   private authToken = signal<string | null>(null);
   private currentUser = signal<any>(null);
   readonly currentUserSignal = this.currentUser.asReadonly();
 
   constructor(private http: HttpClient) {
-    // Inicializa com o token do localStorage se existir
-    this.authToken.set(localStorage.getItem('token'));
+  // Restaura o token
+  this.authToken.set(localStorage.getItem('token'));
+
+  // Restaura o usuário
+  const userJson = localStorage.getItem('user');
+  if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+    try {
+      const user = JSON.parse(userJson);
+      this.currentUser.set(user);  // <- ESSENCIAL
+    } catch (e) {
+      console.error('Erro ao restaurar usuário do localStorage:', e);
+      localStorage.removeItem('user');
+    }
   }
+}
 
   // Headers reutilizáveis
   private getHeaders(): HttpHeaders {
@@ -111,17 +123,18 @@ export class AuthService {
 }
 
   getCurrentUser(): any {
-  // Só retorna o valor atual do signal, sem modificar
   const cachedUser = this.currentUser();
   if (cachedUser) return cachedUser;
 
   try {
-    const user = localStorage.getItem('user');
-    if (user && user !== 'undefined' && user !== 'null') {
-      return JSON.parse(user);
+    const userJson = localStorage.getItem('user');
+    if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+      const user = JSON.parse(userJson);
+      this.currentUser.set(user);  // <- ATUALIZA O SIGNAL
+      return user;
     }
   } catch (e) {
-    console.error('Error parsing user data:', e);
+    console.error('Erro ao processar o usuário:', e);
     localStorage.removeItem('user');
   }
 
