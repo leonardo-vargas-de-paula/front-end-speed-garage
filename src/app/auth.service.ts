@@ -35,7 +35,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000/api/';
+  private baseUrl = 'http://127.0.0.1:8000/api/';
   private authToken = signal<string | null>(null);
   private currentUser = signal<any>(null);
   readonly currentUserSignal = this.currentUser.asReadonly();
