@@ -35,14 +35,27 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://127.0.0.1:8000/api/'; //teste 
   private authToken = signal<string | null>(null);
-   private currentUser = signal<any>(null);
+  private currentUser = signal<any>(null);
+  readonly currentUserSignal = this.currentUser.asReadonly();
 
   constructor(private http: HttpClient) {
-    // Inicializa com o token do localStorage se existir
-    this.authToken.set(localStorage.getItem('token'));
+  // Restaura o token
+  this.authToken.set(localStorage.getItem('token'));
+
+  // Restaura o usuário
+  const userJson = localStorage.getItem('user');
+  if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+    try {
+      const user = JSON.parse(userJson);
+      this.currentUser.set(user);  // <- ESSENCIAL
+    } catch (e) {
+      console.error('Erro ao restaurar usuário do localStorage:', e);
+      localStorage.removeItem('user');
+    }
   }
+}
 
   // Headers reutilizáveis
   private getHeaders(): HttpHeaders {
@@ -102,26 +115,30 @@ export class AuthService {
     );
   }
 
-  saveTokenAndUser(token: string, user: any): void {  // Novo método
+  saveTokenAndUser(token: string, user: any): void {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken.set(token);
     this.currentUser.set(user);
-  }
+}
 
   getCurrentUser(): any {
-  if (!this.currentUser()) {
-    try {
-      const user = localStorage.getItem('user');
-      if (user && user !== 'undefined' && user !== 'null') {
-        this.currentUser.set(JSON.parse(user));
-      }
-    } catch (e) {
-      console.error('Error parsing user data:', e);
-      localStorage.removeItem('user'); // Limpa dados inválidos
+  const cachedUser = this.currentUser();
+  if (cachedUser) return cachedUser;
+
+  try {
+    const userJson = localStorage.getItem('user');
+    if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+      const user = JSON.parse(userJson);
+      this.currentUser.set(user);  // <- ATUALIZA O SIGNAL
+      return user;
     }
+  } catch (e) {
+    console.error('Erro ao processar o usuário:', e);
+    localStorage.removeItem('user');
   }
-  return this.currentUser();
+
+  return null;
 }
 
   // Atualize o método logout
