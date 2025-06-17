@@ -6,7 +6,7 @@
   </div>
   <div class="coluna" id="topHundred">
     <h1>MY PROFILE</h1>
-    <span *ngIf="authService.getCurrentUser()">
+    <span *ngIf="authService.currentUserSignal() as user">
       Bem-vindo, {{ authService.getCurrentUser().username }}!
     </span>
   </div>

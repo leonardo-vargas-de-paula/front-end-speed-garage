@@ -37,7 +37,8 @@ export interface LoginResponse {
 export class AuthService {
   private baseUrl = 'http://localhost:8000/api';
   private authToken = signal<string | null>(null);
-   private currentUser = signal<any>(null);
+  private currentUser = signal<any>(null);
+  readonly currentUserSignal = this.currentUser.asReadonly();
 
   constructor(private http: HttpClient) {
     // Inicializa com o token do localStorage se existir
@@ -102,26 +103,29 @@ export class AuthService {
     );
   }
 
-  saveTokenAndUser(token: string, user: any): void {  // Novo método
+  saveTokenAndUser(token: string, user: any): void {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken.set(token);
     this.currentUser.set(user);
-  }
+}
 
   getCurrentUser(): any {
-  if (!this.currentUser()) {
-    try {
-      const user = localStorage.getItem('user');
-      if (user && user !== 'undefined' && user !== 'null') {
-        this.currentUser.set(JSON.parse(user));
-      }
-    } catch (e) {
-      console.error('Error parsing user data:', e);
-      localStorage.removeItem('user'); // Limpa dados inválidos
+  // Só retorna o valor atual do signal, sem modificar
+  const cachedUser = this.currentUser();
+  if (cachedUser) return cachedUser;
+
+  try {
+    const user = localStorage.getItem('user');
+    if (user && user !== 'undefined' && user !== 'null') {
+      return JSON.parse(user);
     }
+  } catch (e) {
+    console.error('Error parsing user data:', e);
+    localStorage.removeItem('user');
   }
-  return this.currentUser();
+
+  return null;
 }
 
   // Atualize o método logout

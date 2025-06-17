@@ -1,9 +1,24 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ReviewComponent } from './review/review.component';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs/operators';
+
+export interface Review {
+  id: number;
+  usuario_nome: string;
+  carro_nome: string;
+  avaliacao: number;
+  votes?: number;
+  shortReview?: string;
+  // outros campos que você usa
+}
+
+export interface ReviewResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Review[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,28 +31,21 @@ export class ReviewService {
     private authService: AuthService
   ) { }
 
-  getReviews(): Observable<any[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(response => {
-        return response.results || [];
-      })
-    );
+  getReviews(): Observable<ReviewResponse> {
+    return this.http.get<ReviewResponse>(this.apiUrl);
   }
 
-
-  getFullReview(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}/`);
+  getFullReview(id: number): Observable<Review> {
+    return this.http.get<Review>(`${this.apiUrl}/${id}/`);
   }
 
-  getMyReviews(): Observable<any[]> {
-    const token = this.authService.getToken();
-    if (!token) {
-      return of([]); 
-    }
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    
-    return this.http.get<any>(`${this.apiUrl}`, { headers }).pipe(
-        map(response => response.results || [])
-    );
-  }
+  getMyReviews(): Observable<ReviewResponse> {
+  const token = this.authService.getToken(); // Certifique-se de que esse método retorna o JWT atual
+
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get<ReviewResponse>(`${this.apiUrl}?my=true`, { headers });
+}
 }
