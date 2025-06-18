@@ -40,16 +40,12 @@ export class ReviewService {
   }
 
   getMyReviews(): Observable<ReviewResponse> {
-  const token = this.authService.getToken();
+    const token = this.authService.getToken();
 
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  console.log('Token:', token); // Verifique se o token está sendo passado corretamente
-  console.log('Headers:', headers); // Verifique os headers
-  console.log('API URL:', `${this.apiUrl}?my=true/`); // Verifique a URL da API
-
-  return this.http.get<ReviewResponse>(`${this.apiUrl}?my=true`, { headers });
-}
+    return this.http.get<ReviewResponse>(`${this.apiUrl}?my=true`, { headers });
+  }
 }

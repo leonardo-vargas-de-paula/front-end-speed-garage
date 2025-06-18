@@ -4,24 +4,23 @@
     <div class="content">
       <h1>NEW REVIEW</h1>
       <div class="custom-select-container">
-        <span class="custom-arrow">&#9654;</span>
-        <select class="styled-select">
-          <option selected disabled>SELECT A BRAND</option>
-          <option value="brand1">Brand 1</option>
+        <select (change)="onMarcaChange($event)">
+          <option value="" disabled selected>Selecione a marca</option>
+          <option *ngFor="let marca of marcas" [value]="marca">
+            {{ marca }}
+          </option>
         </select>
-      </div>
-      <div class="custom-select-container">
-        <span class="custom-arrow">&#9654;</span>
-        <select class="styled-select">
-          <option selected disabled>SELECT A MODEL</option>
-          <option value="brand1">Brand 1</option>
+
+        <select (change)="onModeloChange($event)" [disabled]="!selectedMarca">
+          <option value="" disabled selected>Selecione o modelo</option>
+          <option *ngFor="let modelo of modelos" [value]="modelo">
+            {{ modelo }}
+          </option>
         </select>
-      </div>
-      <div class="custom-select-container">
-        <span class="custom-arrow">&#9654;</span>
-        <select class="styled-select">
-          <option selected disabled>SELECT A YEAR OF FABRICATION</option>
-          <option value="brand1">Brand 1</option>
+
+        <select (change)="onAnoChange($event)" [disabled]="!selectedModelo">
+          <option value="" disabled selected>Selecione o ano</option>
+          <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
         </select>
       </div>
       <div class="containerText">
