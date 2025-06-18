@@ -27,17 +27,6 @@ export class ReviewListComponent implements OnInit {
     }
   }
 
-  // loadAllReviews(): void {
-  //   this.reviewService.getReviews().subscribe(data => {
-  //     this.reviews = data;
-  //   });
-  // }
-
-  // loadMyReviews(): void {
-  //   this.reviewService.getMyReviews().subscribe(data => {
-  //     this.reviews = data;
-  //   });
-  // }
   loadAllReviews(): void {
   this.reviewService.getReviews().subscribe(data => {
     this.reviews = data.results;

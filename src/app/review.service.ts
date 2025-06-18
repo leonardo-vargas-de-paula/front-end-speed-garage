@@ -24,7 +24,7 @@ export interface ReviewResponse {
   providedIn: 'root'
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:8000/api/reviews/';
+  private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
 
   constructor(
     private http: HttpClient,
@@ -40,11 +40,15 @@ export class ReviewService {
   }
 
   getMyReviews(): Observable<ReviewResponse> {
-  const token = this.authService.getToken(); // Certifique-se de que esse método retorna o JWT atual
+  const token = this.authService.getToken();
 
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
+
+  console.log('Token:', token); // Verifique se o token está sendo passado corretamente
+  console.log('Headers:', headers); // Verifique os headers
+  console.log('API URL:', `${this.apiUrl}?my=true/`); // Verifique a URL da API
 
   return this.http.get<ReviewResponse>(`${this.apiUrl}?my=true`, { headers });
 }

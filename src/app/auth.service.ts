@@ -35,7 +35,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:8000/api/'; //teste 
+  private baseUrl = 'http://127.0.0.1:8000/api/'; //teste
   private authToken = signal<string | null>(null);
   private currentUser = signal<any>(null);
   readonly currentUserSignal = this.currentUser.asReadonly();
@@ -72,7 +72,7 @@ export class AuthService {
     });
 
     return this.http.post<LoginResponse>(
-      `${this.baseUrl}/token/`,
+      `${this.baseUrl}token/`,
       credentials,
       { headers }
     );
@@ -82,7 +82,7 @@ export class AuthService {
   register(user: RegisterPayload): Observable<any> {
     const body = JSON.stringify(user);
     return this.http.post(
-      `${this.baseUrl}/register/`,
+      `${this.baseUrl}register/`,
       body,
       { headers: this.getHeaders() }
     );
@@ -109,7 +109,7 @@ export class AuthService {
   refreshToken(refreshToken: string): Observable<AuthTokenResponse> {
     const body = JSON.stringify({ refresh: refreshToken });
     return this.http.post<AuthTokenResponse>(
-      `${this.baseUrl}/token/refresh/`,
+      `${this.baseUrl}token/refresh/`,
       body,
       { headers: this.getHeaders() }
     );
