@@ -39,6 +39,6 @@ export class CriticaService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<Critica[]>(`${this.baseUrl}/my-reviews/`, { headers });
+    return this.http.get<Critica[]>(`${this.baseUrl}my-reviews/`, { headers });
   }
 }
