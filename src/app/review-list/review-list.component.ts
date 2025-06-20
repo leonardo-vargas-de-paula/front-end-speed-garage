@@ -12,17 +12,16 @@ import { CardComponent } from "../shared/card/card.component";
 })
 export class ReviewListComponent implements OnInit {
   reviews: any[] = [];
- // A propriedade de entrada que define o modo.
-  // 'all' será o valor padrão se nada for passado.
+
   @Input() listMode: 'all' | 'my-reviews' = 'all';
 
   constructor(private reviewService: ReviewService) { }
 
   ngOnInit(): void {
-    // Agora, decidimos qual método do serviço chamar com base no modo
+
     if (this.listMode === 'my-reviews') {
       this.loadMyReviews();
-    } else { // O padrão é 'all'
+    } else { 
       this.loadAllReviews();
     }
   }

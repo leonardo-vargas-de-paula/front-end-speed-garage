@@ -2,43 +2,55 @@
 <div class="container">
   <div class="review-card">
     <div class="content">
-      <h1>NEW REVIEW</h1>
+      <div class="titulo">
+        <h1>NEW REVIEW</h1>
+      </div>
+      
       <div class="custom-select-container">
-        <select (change)="onMarcaChange($event)">
+        <select class="styled-select" (change)="onMarcaChange($event)">
           <option value="" disabled selected>Selecione a marca</option>
           <option *ngFor="let marca of marcas" [value]="marca">
             {{ marca }}
           </option>
         </select>
-
-        <select (change)="onModeloChange($event)" [disabled]="!selectedMarca">
+      </div>
+      <div class="custom-select-container">
+        <select class="styled-select" (change)="onModeloChange($event)" [disabled]="!selectedMarca">
           <option value="" disabled selected>Selecione o modelo</option>
           <option *ngFor="let modelo of modelos" [value]="modelo">
             {{ modelo }}
           </option>
         </select>
-
-        <select (change)="onAnoChange($event)" [disabled]="!selectedModelo">
+      </div>
+      <div class="custom-select-container">
+        <select class="styled-select" (change)="onAnoChange($event)" [disabled]="!selectedModelo">
           <option value="" disabled selected>Selecione o ano</option>
           <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
         </select>
       </div>
+      <span class="aviso">Can't find the model?<a class="buttonAdd" (click)="toNewCar()"> Add it here</a></span>
       <div class="containerText">
         <span id="text">LEAVE YOUR HATING: </span>
+        <div class="rating">
+          <input value="5" name="rating" id="star5" type="radio" (change)="onRatingChange($event)">
+          <label for="star5"></label>
+          <input value="4" name="rating" id="star4" type="radio" (change)="onRatingChange($event)">
+          <label for="star4"></label>
+          <input value="3" name="rating" id="star3" type="radio" (change)="onRatingChange($event)">
+          <label for="star3"></label>
+          <input value="2" name="rating" id="star2" type="radio" (change)="onRatingChange($event)">
+          <label for="star2"></label>
+          <input value="1" name="rating" id="star1" type="radio" (change)="onRatingChange($event)">
+          <label for="star1"></label>
+        </div>
+
       </div>
-      <textarea ut type="text" placeholder="Review:"></textarea>
+      <textarea [(ngModel)]="reviewText" placeholder="Review:" name="review"></textarea>
       <div class="containerText">
-        <span id="text"
-          >When its allready, Submit it <a id="submit">RIGHT HERE</a></span
-        >
+        <span id="text" >When its allready, Submit it <a id="submit" (click)="submitReview()">RIGHT HERE</a></span>
       </div>
-      <a id="botaoVoltar" (click)="voltarHome()"
-        ><i
-          class="fa-solid fa-arrow-left"
-          style="color: #ab0302; margin-right: 5px"
-        ></i
-        >BACK TO REVIEWS</a
-      >
+      <a id="botaoVoltar" (click)="voltarHome()"><i class="fa-solid fa-arrow-left"
+          style="color: #ab0302; margin-right: 5px"></i>BACK TO REVIEWS</a>
     </div>
     <div class="image-card">
       @if (imagePreview()) {

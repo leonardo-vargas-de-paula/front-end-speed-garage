@@ -35,3 +35,11 @@ h2{
   text-decoration: underline;
   cursor:pointer;
 }
+
+span{
+  max-width: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

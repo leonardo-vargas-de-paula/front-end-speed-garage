@@ -3,7 +3,7 @@
   <p class="rating" id="rvLine">RATING: {{ rating }} ({{ votes }} VOTES)</p>
   <p class="author" id="rvLine">AUTHOR: {{ author }}</p>
   <div class="review-preview">
-    <p id="rvLine">"{{ shortReview }}"</p>
+    <p id="rvLine">"<span>{{ texto }}</span>"</p>
   </div>
   <div class="actions">
     <a class="read-more-btn" (click)="onReadMore()">READ MORE</a>

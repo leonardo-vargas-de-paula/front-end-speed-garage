@@ -2,6 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Carro } from './models/carro.model';
+
+export interface CarroResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Carro[];
+}
 
 export interface Review {
   id: number;
@@ -9,8 +17,8 @@ export interface Review {
   carro_nome: string;
   avaliacao: number;
   votes?: number;
-  shortReview?: string;
-  // outros campos que você usa
+  texto?: string;
+
 }
 
 export interface ReviewResponse {
@@ -31,6 +39,8 @@ export class ReviewService {
     private authService: AuthService
   ) { }
 
+
+
   getReviews(): Observable<ReviewResponse> {
     return this.http.get<ReviewResponse>(this.apiUrl);
   }
@@ -48,4 +58,23 @@ export class ReviewService {
 
     return this.http.get<ReviewResponse>(`${this.apiUrl}?my=true`, { headers });
   }
+
+  createReview(reviewData: any): Observable<Review> {
+    const token = this.authService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post<Review>(this.apiUrl, reviewData, { headers });
+  }
+
+  getCarros(token: string): Observable<CarroResponse> {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get<CarroResponse>('http://127.0.0.1:8000/api/cars/', { headers });
+}
+
 }

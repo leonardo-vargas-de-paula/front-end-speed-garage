@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TelaLoginCadastroComponent } from './tela-login-cadastro/tela-login-cadastro.component';
@@ -6,6 +5,7 @@ import { CadastroComponent } from './tela-login-cadastro/cadastro/cadastro.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ReviewComponent } from './review/review.component';
 import { NewReviewComponent } from './new-review/new-review.component';
+import { AddCarComponent } from './add-car/add-car.component';
 
 export const routes: Routes = [
     { path: '', component: TelaLoginCadastroComponent },
@@ -13,6 +13,7 @@ export const routes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'profile', component: ProfileComponent},
     {path: 'review/:id', component: ReviewComponent},
-    {path: 'newreview', component: NewReviewComponent}
+    {path: 'newreview', component: NewReviewComponent},
+    {path: 'newcar', component: AddCarComponent}
 ];
 

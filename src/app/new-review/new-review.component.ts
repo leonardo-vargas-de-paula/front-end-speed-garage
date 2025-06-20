@@ -5,10 +5,14 @@ import { Carro } from '../models/carro.model';
 import { CarroService } from '../services/carro-service.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { ReviewService } from '../review.service';
+import { FormsModule } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-new-review',
-  imports: [HeaderComponent, CommonModule],
+  imports: [HeaderComponent, CommonModule, FormsModule],
   templateUrl: './new-review.component.html',
   styleUrl: './new-review.component.css'
 })
@@ -19,7 +23,8 @@ export class NewReviewComponent {
     private route: ActivatedRoute,
     private router: Router,
     private carroService: CarroService,
-    private authService: AuthService
+    private authService: AuthService,
+    private reviewService: ReviewService
   ) { }
 
   carros: Carro[] = [];
@@ -31,6 +36,10 @@ export class NewReviewComponent {
   selectedMarca: string | null = null;
   selectedModelo: string | null = null;
   selectedAno: number | null = null;
+
+  reviewText: string = '';
+  avaliacao: number | null = null;
+  selectedFile: File | null = null;
 
 
   voltarHome() {
@@ -53,17 +62,26 @@ export class NewReviewComponent {
   }
 
   ngOnInit(): void {
-    const token = this.authService.getToken();
-    if (!token) {
-      console.error('Token não encontrado, usuário não autenticado.');
-      return; // ou redireciona para login, etc.
-    }
-
-    this.carroService.getMarcas(token).subscribe({
-      next: data => this.marcas = data,
-      error: err => console.error('Erro ao carregar marcas:', err)
-    });
+  const token = this.authService.getToken();
+  if (!token) {
+    console.error('Token não encontrado, usuário não autenticado.');
+    return;
   }
+
+  // Carrega as marcas
+  this.carroService.getMarcas(token).subscribe({
+    next: data => this.marcas = data,
+    error: err => console.error('Erro ao carregar marcas:', err)
+  });
+
+  // Carrega todos os carros (marca, modelo, ano, id)
+  this.carroService.getCarros(token).subscribe({
+  next: data => {
+    this.carros = data.results; // <- acessa o array real
+  },
+  error: err => console.error('Erro ao carregar carros:', err)
+});
+}
 
   onMarcaChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
@@ -74,6 +92,8 @@ export class NewReviewComponent {
     this.selectedAno = null;
     this.modelos = [];
     this.anos = [];
+
+
 
     const token = this.authService.getToken();
     if (token) {
@@ -87,6 +107,7 @@ export class NewReviewComponent {
   onModeloChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const modeloSelecionado = selectElement.value;
+
 
     if (!this.selectedMarca) return;
 
@@ -108,5 +129,53 @@ export class NewReviewComponent {
     const anoSelecionado = +selectElement.value;
 
     this.selectedAno = isNaN(anoSelecionado) ? null : anoSelecionado;
+
+  }
+
+  onRatingChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.avaliacao = parseInt(input.value);
+  }
+
+  submitReview(): void {
+  if (!this.selectedMarca || !this.selectedModelo || !this.selectedAno || !this.avaliacao) {
+    alert('Preencha todos os campos antes de enviar!');
+    return;
+  }
+
+  const carro = this.carros.find(c =>
+    c.marca === this.selectedMarca &&
+    c.modelo === this.selectedModelo &&
+    c.ano === this.selectedAno
+  );
+
+  if (!carro) {
+    alert('Carro não encontrado.');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('carro', String(carro.id)); // ID do carro
+  formData.append('avaliacao', String(this.avaliacao));
+  formData.append('texto', this.reviewText);  // campo correto para o texto da review
+
+  if (this.selectedFile) {
+    formData.append('imagem', this.selectedFile);
+  }
+
+  this.reviewService.createReview(formData).subscribe({
+    next: res => {
+      alert('Review enviada com sucesso!');
+      this.router.navigate(['home/']);
+    },
+    error: err => {
+      console.error('Erro ao enviar review:', err);
+      alert('Erro ao enviar review. Veja o console para detalhes.');
+    }
+  });
+}
+
+  toNewCar() {
+    this.router.navigate(['/newcar']);
   }
 }
