@@ -1,23 +1,60 @@
-.container{
+.container {
   display: flex;
   height: 100vh;
   width: 100%;
   margin: 0;
 }
 
-
-.coluna{
+.coluna {
   display: flex;
-  height: 100vh;
-  width: 100%;
-  margin: 0;
   flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
   align-items: center;
 }
 
-h1{
+h1 {
   color: #ab0302;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 2.5rem;
-  font-weight:900;
+  font-weight: 900;
+  margin: 1rem 0;
+}
+
+/* Novo bloco com scroll */
+.scrollable {
+  overflow-y: auto;
+  flex: 1; /* pega o espaço restante da coluna */
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scrollbar-width: none;
+}
+/* Estiliza a barra de rolagem no Chrome/Safari/Edge */
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+  display: none;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: #ab0302;
+  border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #870000;
+}
+
+/* Firefox (scrollbar estilizado) */
+.scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: #ab0302 #f1f1f1;
 }

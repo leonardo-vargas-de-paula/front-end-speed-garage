@@ -13,7 +13,7 @@ export class CardComponent {
   @Input() rating: number = 0;
   @Input() votes: number = 0;
   @Input() author: string = '';
-  @Input() shortReview: string = '';
+  @Input() texto: string = '';
 
   constructor(private router: Router) {}
 

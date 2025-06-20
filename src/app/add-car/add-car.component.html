@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="container">
+  <div class="review-card">
+    <div class="adicionaCarro">
+      <h1>NEW CAR</h1>
+      <span>BRAND</span>
+      <input type="text" [(ngModel)]="marca">
+      <span>MODEL</span>
+      <input type="text" [(ngModel)]="modelo">
+      <span>YEAR</span>
+      <input type="number" [(ngModel)]="ano">
+
+      <span>SUBMIT IT <a (click)="salvarCarro()">RIGHT HERE</a></span>
+      <a id="botaoVoltar" (click)="voltarNewReview()">
+        <i class="fa-solid fa-arrow-left" style="color: #ab0302; margin-right: 5px"></i>
+        BACK TO REVIEWS
+      </a>
+    </div>
+    <div class="imagemCarro">
+      <!-- Imagem opcional -->
+    </div>
+  </div>
+</div>
