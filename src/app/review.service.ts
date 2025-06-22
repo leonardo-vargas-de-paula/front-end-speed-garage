@@ -32,6 +32,7 @@ export interface ReviewResponse {
   providedIn: 'root'
 })
 export class ReviewService {
+  //private apiUrl = 'https://speedgarage-backend.onrender.com/api/reviews/';
   private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
 
   constructor(
@@ -74,7 +75,7 @@ export class ReviewService {
     'Authorization': `Bearer ${token}`
   });
 
-  return this.http.get<CarroResponse>('http://127.0.0.1:8000/api/cars/', { headers });
+  return this.http.get<CarroResponse>('http://127.0.0.1:8000/api/reviews/api/cars/', { headers });
 }
 
 }

@@ -4,20 +4,29 @@
     <div class="adicionaCarro">
       <h1>NEW CAR</h1>
       <span>BRAND</span>
-      <input type="text" [(ngModel)]="marca">
+      <input id="inputCarro" type="text" [(ngModel)]="marca" />
       <span>MODEL</span>
-      <input type="text" [(ngModel)]="modelo">
+      <input id="inputCarro" type="text" [(ngModel)]="modelo" />
       <span>YEAR</span>
-      <input type="number" [(ngModel)]="ano">
+      <input id="inputCarro" type="number" [(ngModel)]="ano" />
 
       <span>SUBMIT IT <a (click)="salvarCarro()">RIGHT HERE</a></span>
       <a id="botaoVoltar" (click)="voltarNewReview()">
-        <i class="fa-solid fa-arrow-left" style="color: #ab0302; margin-right: 5px"></i>
+        <i
+          class="fa-solid fa-arrow-left"
+          style="color: #ab0302; margin-right: 5px"
+        ></i>
         BACK TO REVIEWS
       </a>
     </div>
     <div class="imagemCarro">
-      <!-- Imagem opcional -->
+      <span>UPLOAD IMAGE</span>
+      <input type="file" (change)="onFileChange($event)" />
+      <select [(ngModel)]="tipo" name="tipo">
+        <option value="EX">Exterior</option>
+        <option value="IN">Interior</option>
+        <option value="MO">Motor</option>
+      </select>
     </div>
   </div>
 </div>
