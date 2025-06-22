@@ -62,26 +62,22 @@ export class NewReviewComponent {
   }
 
   ngOnInit(): void {
-  const token = this.authService.getToken();
-  if (!token) {
-    console.error('Token não encontrado, usuário não autenticado.');
-    return;
+    const token = this.authService.getToken();
+    if (!token) {
+      console.error('Token não encontrado, usuário não autenticado.');
+      return;
+    }
+
+    // Carrega todos os carros (marca, modelo, ano, id)
+    this.carroService.getCarros(token).subscribe({
+      next: data => {
+        this.carros = data.results;
+        // Extrai e remove duplicatas das marcas
+        this.marcas = [...new Set(this.carros.map(c => c.marca))];
+      },
+      error: err => console.error('Erro ao carregar carros:', err)
+    });
   }
-
-  // Carrega as marcas
-  this.carroService.getMarcas(token).subscribe({
-    next: data => this.marcas = data,
-    error: err => console.error('Erro ao carregar marcas:', err)
-  });
-
-  // Carrega todos os carros (marca, modelo, ano, id)
-  this.carroService.getCarros(token).subscribe({
-  next: data => {
-    this.carros = data.results; // <- acessa o array real
-  },
-  error: err => console.error('Erro ao carregar carros:', err)
-});
-}
 
   onMarcaChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
@@ -93,21 +89,17 @@ export class NewReviewComponent {
     this.modelos = [];
     this.anos = [];
 
+    // Filtra os carros dessa marca e extrai modelos únicos
+    const modelosFiltrados = this.carros
+      .filter(c => c.marca === marcaSelecionada)
+      .map(c => c.modelo);
 
-
-    const token = this.authService.getToken();
-    if (token) {
-      this.carroService.getModelos(marcaSelecionada, token).subscribe({
-        next: data => this.modelos = data,
-        error: err => console.error('Erro ao carregar modelos:', err)
-      });
-    }
+    this.modelos = [...new Set(modelosFiltrados)];
   }
 
   onModeloChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const modeloSelecionado = selectElement.value;
-
 
     if (!this.selectedMarca) return;
 
@@ -115,13 +107,12 @@ export class NewReviewComponent {
     this.selectedAno = null;
     this.anos = [];
 
-    const token = this.authService.getToken();
-    if (token) {
-      this.carroService.getAnos(this.selectedMarca, modeloSelecionado, token).subscribe({
-        next: data => this.anos = data,
-        error: err => console.error('Erro ao carregar anos:', err)
-      });
-    }
+    // Filtra os carros com marca e modelo e extrai anos únicos
+    const anosFiltrados = this.carros
+      .filter(c => c.marca === this.selectedMarca && c.modelo === modeloSelecionado)
+      .map(c => c.ano);
+
+    this.anos = [...new Set(anosFiltrados)];
   }
 
   onAnoChange(event: Event) {
@@ -138,42 +129,42 @@ export class NewReviewComponent {
   }
 
   submitReview(): void {
-  if (!this.selectedMarca || !this.selectedModelo || !this.selectedAno || !this.avaliacao) {
-    alert('Preencha todos os campos antes de enviar!');
-    return;
-  }
-
-  const carro = this.carros.find(c =>
-    c.marca === this.selectedMarca &&
-    c.modelo === this.selectedModelo &&
-    c.ano === this.selectedAno
-  );
-
-  if (!carro) {
-    alert('Carro não encontrado.');
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('carro', String(carro.id)); // ID do carro
-  formData.append('avaliacao', String(this.avaliacao));
-  formData.append('texto', this.reviewText);  // campo correto para o texto da review
-
-  if (this.selectedFile) {
-    formData.append('imagem', this.selectedFile);
-  }
-
-  this.reviewService.createReview(formData).subscribe({
-    next: res => {
-      alert('Review enviada com sucesso!');
-      this.router.navigate(['home/']);
-    },
-    error: err => {
-      console.error('Erro ao enviar review:', err);
-      alert('Erro ao enviar review. Veja o console para detalhes.');
+    if (!this.selectedMarca || !this.selectedModelo || !this.selectedAno || !this.avaliacao) {
+      alert('Preencha todos os campos antes de enviar!');
+      return;
     }
-  });
-}
+
+    const carro = this.carros.find(c =>
+      c.marca === this.selectedMarca &&
+      c.modelo === this.selectedModelo &&
+      c.ano === this.selectedAno
+    );
+
+    if (!carro) {
+      alert('Carro não encontrado.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('carro', String(carro.id)); // ID do carro
+    formData.append('avaliacao', String(this.avaliacao));
+    formData.append('texto', this.reviewText);  // campo correto para o texto da review
+
+    if (this.selectedFile) {
+      formData.append('imagem', this.selectedFile);
+    }
+
+    this.reviewService.createReview(formData).subscribe({
+      next: res => {
+        alert('Review enviada com sucesso!');
+        this.router.navigate(['home/']);
+      },
+      error: err => {
+        console.error('Erro ao enviar review:', err);
+        alert('Erro ao enviar review. Veja o console para detalhes.');
+      }
+    });
+  }
 
   toNewCar() {
     this.router.navigate(['/newcar']);
