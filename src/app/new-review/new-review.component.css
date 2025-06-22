@@ -169,7 +169,7 @@ img {
   border-radius: 10px;
 }
 
-/* From Uiverse.io by PriyanshuGupta28 */ 
+/* From Uiverse.io by PriyanshuGupta28 */
 .rating {
   display: inline-block;
 }
@@ -208,6 +208,7 @@ img {
   padding-bottom: 10px;
   justify-content: flex-end;
   height: 30px;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .buttonAdd{

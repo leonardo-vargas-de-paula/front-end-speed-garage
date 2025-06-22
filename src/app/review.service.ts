@@ -15,6 +15,8 @@ export interface Review {
   id: number;
   usuario_nome: string;
   carro_nome: string;
+  carro_modelo: string;
+  carro_ano: string;
   avaliacao: number;
   votes?: number;
   texto?: string;

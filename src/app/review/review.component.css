@@ -29,6 +29,10 @@
 
 .content{
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
 }
 
 #botaoVoltar{
@@ -48,10 +52,12 @@ h1{
   font-size: 2.5rem;
   font-weight:900;
   margin: 0%;
+  padding-bottom: 30px;
 }
 
 .author{
   font-family: 'Barlow Condensed', sans-serif;
+  padding-bottom: 30px;
 }
 
 .rating{
@@ -60,4 +66,13 @@ h1{
 
 .full-review{
   font-family: 'Barlow Condensed', sans-serif;
+  padding-bottom: 30px;
+}
+
+p{
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.2rem;
+  color: #000000;
+  max-width: 350px;
+  overflow-wrap: break-word;
 }

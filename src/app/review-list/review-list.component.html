@@ -6,8 +6,9 @@
       [rating]="review.avaliacao"
       [votes]="review.votes"
       [author]="review.usuario_nome"
-      [texto]="review.texto">
-    </app-card>
+      [texto]="review.texto"
+      [ano]="review.carro_ano"
+      [marca]="review.carro_marca"></app-card>
   } @empty {
     <p>No reviews available</p>
   }
