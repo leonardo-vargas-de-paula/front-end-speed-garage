@@ -14,6 +14,8 @@ export class CardComponent {
   @Input() votes: number = 0;
   @Input() author: string = '';
   @Input() texto: string = '';
+  @Input() marca: string = '';
+  @Input() ano: number = 0;
 
   constructor(private router: Router) {}
 

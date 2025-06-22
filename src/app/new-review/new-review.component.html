@@ -5,10 +5,10 @@
       <div class="titulo">
         <h1>NEW REVIEW</h1>
       </div>
-      
+
       <div class="custom-select-container">
         <select class="styled-select" (change)="onMarcaChange($event)">
-          <option value="" disabled selected>Selecione a marca</option>
+          <option value="" disabled selected>SELECT A BRAND</option>
           <option *ngFor="let marca of marcas" [value]="marca">
             {{ marca }}
           </option>
@@ -16,7 +16,7 @@
       </div>
       <div class="custom-select-container">
         <select class="styled-select" (change)="onModeloChange($event)" [disabled]="!selectedMarca">
-          <option value="" disabled selected>Selecione o modelo</option>
+          <option value="" disabled selected>SELECT A MODEL</option>
           <option *ngFor="let modelo of modelos" [value]="modelo">
             {{ modelo }}
           </option>
@@ -24,7 +24,7 @@
       </div>
       <div class="custom-select-container">
         <select class="styled-select" (change)="onAnoChange($event)" [disabled]="!selectedModelo">
-          <option value="" disabled selected>Selecione o ano</option>
+          <option value="" disabled selected>SELECT A YEAR</option>
           <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
         </select>
       </div>

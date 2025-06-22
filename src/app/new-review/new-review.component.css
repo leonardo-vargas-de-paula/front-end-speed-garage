@@ -169,7 +169,7 @@ img {
   border-radius: 10px;
 }
 
-/* From Uiverse.io by PriyanshuGupta28 */ 
+/* From Uiverse.io by PriyanshuGupta28 */
 .rating {
   display: inline-block;
 }
@@ -208,6 +208,7 @@ img {
   padding-bottom: 10px;
   justify-content: flex-end;
   height: 30px;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .buttonAdd{
@@ -215,4 +216,11 @@ img {
   font-family: 'Barlow Condensed', sans-serif;
   text-decoration: underline;
   cursor: pointer;
+}
+
+textarea{
+  max-width: 800px;
+  max-height: 200px;
+  min-height: 17px;
+  min-width: 300px;
 }

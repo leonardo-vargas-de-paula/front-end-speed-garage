@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CarroService } from '../services/carro-service.service';
 import { HeaderComponent } from "../shared/header/header.component";
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -16,11 +17,14 @@ export class AddCarComponent {
   marca: string = '';
   modelo: string = '';
   ano: number | null = null;
+  selectedFile: File | null = null;
+  tipo: string = "EX"; // valor default
 
   constructor(
     private router: Router,
-    private carroService: CarroService
-  ) {}
+    private carroService: CarroService,
+    private http: HttpClient,
+  ) { }
 
   voltarNewReview() {
     this.router.navigate(['/newreview']);
@@ -36,14 +40,32 @@ export class AddCarComponent {
       marca: this.marca,
       modelo: this.modelo,
       ano: this.ano
-      
     };
 
     this.carroService.addCarro(novoCarro).subscribe({
-      
-      next: () => {
+      next: (carroCriado) => {
         alert('Carro adicionado com sucesso!');
-        this.router.navigate(['/newreview']);
+
+        // Agora sim: envia a imagem, usando o ID do carro
+        if (this.selectedFile) {
+          const formData = new FormData();
+          formData.append('foto', this.selectedFile);
+          formData.append('tipo', this.tipo);
+          formData.append('carro', carroCriado.count.toString());
+
+          this.http.post('/api/car-images/', formData).subscribe({
+            next: () => {
+              alert('Imagem enviada com sucesso!');
+              this.router.navigate(['/newreview']);
+            },
+            error: (err) => {
+              console.error('Erro ao enviar imagem:', err);
+              alert('Erro ao enviar imagem. Veja o console.');
+            }
+          });
+        } else {
+          this.router.navigate(['/newreview']);
+        }
       },
       error: err => {
         console.error('Erro ao adicionar carro:', err);
@@ -51,4 +73,13 @@ export class AddCarComponent {
       }
     });
   }
+
+  onFileChange(event: any) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.selectedFile = fileList[0];
+    }
+  }
+
 }
+
