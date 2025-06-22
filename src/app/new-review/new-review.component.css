@@ -217,3 +217,10 @@ img {
   text-decoration: underline;
   cursor: pointer;
 }
+
+textarea{
+  max-width: 800px;
+  max-height: 200px;
+  min-height: 17px;
+  min-width: 300px;
+}
