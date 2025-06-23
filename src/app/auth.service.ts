@@ -37,7 +37,7 @@ export interface LoginResponse {
 })
 export class AuthService {
   private baseUrl = 'http://127.0.0.1:8000/api/'; //teste
-  //private baseUrl = 'https://speedgarage-backend.onrender.com/api/';
+  //private baseUrl = 'https://speedgarage-web.fly.dev/api/';
   private authToken = signal<string | null>(null);
   private currentUser = signal<any>(null);
   readonly currentUserSignal = this.currentUser.asReadonly()

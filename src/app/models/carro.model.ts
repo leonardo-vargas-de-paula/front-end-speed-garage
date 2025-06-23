@@ -3,5 +3,6 @@ export interface Carro {
   marca: string;
   modelo: string;
   ano: number;
-  imagem: string; 
+  imagem: string;
+  media_avaliacao: number;
 }
