@@ -10,12 +10,15 @@ export interface CarroResponse {
   next: string | null;
   previous: string | null;
   results: Carro[];
+  media_avaliacao: number;
 }
+
+
 
 @Injectable({ providedIn: 'root' })
 export class CarroService {
   private apiUrl = 'http://127.0.0.1:8000/api/cars/';
-  //private apiUrl = 'https://speedgarage-backend.onrender.com/api/cars/';
+  //private apiUrl = 'https://speedgarage-web.fly.dev/api/cars/';
 
   constructor(private http: HttpClient,
     private authService: AuthService,
@@ -53,6 +56,13 @@ export class CarroService {
     const token = this.authService.getToken();
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.post<CarroResponse>(`${this.apiUrl}`, carro, { headers });
+  }
+
+  getTopCars(n = 3, token: string): Observable<Carro[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Carro[]>(`${this.apiUrl}top/?n=${n}`, { headers });
   }
 
 }
