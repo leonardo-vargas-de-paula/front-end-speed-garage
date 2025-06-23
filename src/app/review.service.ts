@@ -14,13 +14,14 @@ export interface CarroResponse {
 export interface Review {
   id: number;
   usuario_nome: string;
-  carro_nome: string;
-  carro_modelo: string;
-  carro_ano: string;
+  carro_nome: string;   // modelo
+  carro_marca: string;  // marca (FALTAVA)
+  carro_ano: number;    // ano (FALTAVA)
   avaliacao: number;
-  votes?: number;
   texto?: string;
-
+  total_likes?: number;
+  liked_by_me?: boolean;
+  criado_em?: string;
 }
 
 export interface ReviewResponse {

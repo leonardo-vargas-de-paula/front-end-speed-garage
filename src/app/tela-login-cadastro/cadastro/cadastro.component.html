@@ -17,7 +17,7 @@
     <span class="icon"><img src="cadeado.svg" id="cadeado" /></span>
     <input type="password" placeholder="CONFIRM PASSWORD" [(ngModel)]="confirmPassword" name="confirmPassword" required />
   </div>
-  <button type="submit" class="button-signup">SIGN UP</button>
+  <button type="submit" (click)="voltarParaLogin()" class="button-signup" >SIGN UP</button>
   <div class="register">
     <p id="texto-signup">
       ALREADY HAVE AN ACCOUNT?

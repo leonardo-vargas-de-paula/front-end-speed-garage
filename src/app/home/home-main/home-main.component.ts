@@ -5,10 +5,11 @@ import { CarroService } from '../../services/carro-service.service';
 import { Carro } from '../../models/carro.model';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home-main',
-  imports: [CardComponent, ReviewListComponent, CommonModule],
+  imports: [CardComponent, ReviewListComponent, CommonModule, RouterModule ],
   templateUrl: './home-main.component.html',
   styleUrl: './home-main.component.css'
 })
