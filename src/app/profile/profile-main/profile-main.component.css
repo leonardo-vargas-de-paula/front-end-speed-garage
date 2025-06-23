@@ -21,3 +21,7 @@ h1{
   font-size: 2.5rem;
   font-weight:900;
 }
+
+#topHundred {
+  font-family: 'Barlow Condensed', sans-serif;
+}

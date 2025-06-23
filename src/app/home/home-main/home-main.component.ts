@@ -10,5 +10,5 @@ import { ReviewListComponent } from "../../review-list/review-list.component";
 })
 export class HomeMainComponent {
   mvw = "MOST VIWED OF THE WEEK";
-  topHundred = "TOP 100 OF ALL TIME";
+  topHundred = "TOP 3 OF ALL TIME";
 }

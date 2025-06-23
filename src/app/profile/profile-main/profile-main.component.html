@@ -9,5 +9,8 @@
     <span *ngIf="authService.currentUserSignal() as user">
       Bem-vindo, {{ authService.getCurrentUser().username }}!
     </span>
+    <span>
+      Email: {{ authService.getCurrentUser().email }}
+    </span>
   </div>
 </div>
