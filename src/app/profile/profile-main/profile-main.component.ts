@@ -11,6 +11,6 @@ import { ReviewListComponent } from "../../review-list/review-list.component";
 })
 export class ProfileMainComponent {
   constructor(public authService: AuthService) {}
-
+  
 
 }

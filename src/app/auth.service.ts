@@ -28,6 +28,7 @@ export interface LoginResponse {
   user: {  // Adicione esta parte
     username: string;
     email: string;
+    is_staff: boolean;
   }
 }
 
@@ -39,24 +40,30 @@ export class AuthService {
   //private baseUrl = 'https://speedgarage-backend.onrender.com/api/';
   private authToken = signal<string | null>(null);
   private currentUser = signal<any>(null);
-  readonly currentUserSignal = this.currentUser.asReadonly();
+  readonly currentUserSignal = this.currentUser.asReadonly()
+
 
   constructor(private http: HttpClient) {
-  // Restaura o token
-  this.authToken.set(localStorage.getItem('token'));
+    // Restaura o token
+    this.authToken.set(localStorage.getItem('token'));
 
-  // Restaura o usuário
-  const userJson = localStorage.getItem('user');
-  if (userJson && userJson !== 'undefined' && userJson !== 'null') {
-    try {
-      const user = JSON.parse(userJson);
-      this.currentUser.set(user);  // <- ESSENCIAL
-    } catch (e) {
-      console.error('Erro ao restaurar usuário do localStorage:', e);
-      localStorage.removeItem('user');
+    // Restaura o usuário
+    const userJson = localStorage.getItem('user');
+    if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+      try {
+        const user = JSON.parse(userJson);
+        this.currentUser.set(user);  // <- ESSENCIAL
+      } catch (e) {
+        console.error('Erro ao restaurar usuário do localStorage:', e);
+        localStorage.removeItem('user');
+      }
     }
   }
-}
+
+  userIsStaff(): boolean {
+    const user = this.getCurrentUser();
+    return user && user.is_staff ? true : false;
+  }
 
   // Headers reutilizáveis
   private getHeaders(): HttpHeaders {
@@ -67,7 +74,7 @@ export class AuthService {
   }
 
   // Login com tipagem forte
-   login(credentials: { username: string; password: string }): Observable<LoginResponse> {
+  login(credentials: { username: string; password: string }): Observable<LoginResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -121,26 +128,28 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken.set(token);
     this.currentUser.set(user);
-}
-
-  getCurrentUser(): any {
-  const cachedUser = this.currentUser();
-  if (cachedUser) return cachedUser;
-
-  try {
-    const userJson = localStorage.getItem('user');
-    if (userJson && userJson !== 'undefined' && userJson !== 'null') {
-      const user = JSON.parse(userJson);
-      this.currentUser.set(user);  // <- ATUALIZA O SIGNAL
-      return user;
-    }
-  } catch (e) {
-    console.error('Erro ao processar o usuário:', e);
-    localStorage.removeItem('user');
   }
 
-  return null;
-}
+  getCurrentUser(): any {
+    const cachedUser = this.currentUser();
+    if (cachedUser) return cachedUser;
+
+    try {
+      const userJson = localStorage.getItem('user');
+      if (userJson && userJson !== 'undefined' && userJson !== 'null') {
+        const user = JSON.parse(userJson);
+        this.currentUser.set(user);
+
+        return user;
+
+      }
+    } catch (e) {
+      console.error('Erro ao processar o usuário:', e);
+      localStorage.removeItem('user');
+    }
+
+    return null;
+  }
 
   // Atualize o método logout
   logout(): void {
