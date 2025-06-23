@@ -8,13 +8,18 @@
   <div class="coluna" id="topHundred">
     <h1>{{ topHundred }}</h1>
     <div class="content">
-        <div class="ranking" *ngFor="let car of topCars; let i = index">
-          <span *ngIf="i === 0">🥇</span>
-          <span *ngIf="i === 1">🥈</span>
-          <span *ngIf="i === 2">🥉</span>
-          <h2>{{ car.marca }} {{ car.modelo }} - {{ car.ano }}</h2>
-          <p>Average score: {{ car.media_avaliacao | number : "1.1-2" }}</p>
-        </div>
+      <div
+        class="ranking"
+        *ngFor="let car of topCars; let i = index"
+        [routerLink]="['/reviews', car.marca, car.modelo, car.ano]"
+        style="cursor: pointer"
+      >
+        <span *ngIf="i === 0">🥇</span>
+        <span *ngIf="i === 1">🥈</span>
+        <span *ngIf="i === 2">🥉</span>
+        <h2>{{ car.marca }} {{ car.modelo }} - {{ car.ano }}</h2>
+        <p>Average votes: {{ car.media_avaliacao | number : "1.1-2" }}</p>
+      </div>
     </div>
   </div>
 </div>

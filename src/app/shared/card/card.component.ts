@@ -13,9 +13,9 @@ export class CardComponent {
   @Input() rating: number = 0;
   @Input() votes: number = 0;
   @Input() author: string = '';
-  @Input() texto: string = '';
-  @Input() marca: string = '';
-  @Input() ano: number = 0;
+  @Input() texto: string | undefined = '';
+  @Input() marca: string | undefined = '';
+  @Input() ano: number | undefined = 0;
 
   constructor(private router: Router) {}
 

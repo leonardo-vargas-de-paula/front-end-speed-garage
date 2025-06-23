@@ -40,7 +40,7 @@ export class CadastroComponent {
   }).subscribe({
     next: (response) => {
       console.log('Cadastro bem-sucedido:', response);
-      this.router.navigate(['home']);
+  
     },
     error: (error) => {
       console.error('Erro no cadastro:', error);
