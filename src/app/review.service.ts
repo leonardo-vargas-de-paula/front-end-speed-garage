@@ -35,8 +35,8 @@ export interface ReviewResponse {
   providedIn: 'root'
 })
 export class ReviewService {
-  //private apiUrl = 'https://speedgarage-web.fly.dev/api/reviews/';
-  private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
+  private apiUrl = 'https://speedgarage-backend.up.railway.app/api/reviews/';
+  //private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
 
   constructor(
     private http: HttpClient,
