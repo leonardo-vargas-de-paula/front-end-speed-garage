@@ -79,94 +79,96 @@ export class NewReviewComponent {
     });
   }
 
-  onMarcaChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const marcaSelecionada = selectElement.value;
+  
 
-    this.selectedMarca = marcaSelecionada;
-    this.selectedModelo = null;
-    this.selectedAno = null;
-    this.modelos = [];
-    this.anos = [];
+onMarcaChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const marcaSelecionada = selectElement.value;
 
-    // Filtra os carros dessa marca e extrai modelos únicos
-    const modelosFiltrados = this.carros
-      .filter(c => c.marca === marcaSelecionada)
-      .map(c => c.modelo);
+  this.selectedMarca = marcaSelecionada;
+  this.selectedModelo = null;
+  this.selectedAno = null;
+  this.modelos = [];
+  this.anos = [];
 
-    this.modelos = [...new Set(modelosFiltrados)];
+  // Filtra os carros dessa marca e extrai modelos únicos
+  const modelosFiltrados = this.carros
+    .filter(c => c.marca === marcaSelecionada)
+    .map(c => c.modelo);
+
+  this.modelos = [...new Set(modelosFiltrados)];
+}
+
+onModeloChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const modeloSelecionado = selectElement.value;
+
+  if (!this.selectedMarca) return;
+
+  this.selectedModelo = modeloSelecionado;
+  this.selectedAno = null;
+  this.anos = [];
+
+  // Filtra os carros com marca e modelo e extrai anos únicos
+  const anosFiltrados = this.carros
+    .filter(c => c.marca === this.selectedMarca && c.modelo === modeloSelecionado)
+    .map(c => c.ano);
+
+  this.anos = [...new Set(anosFiltrados)];
+}
+
+onAnoChange(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const anoSelecionado = +selectElement.value;
+
+  this.selectedAno = isNaN(anoSelecionado) ? null : anoSelecionado;
+
+}
+
+onRatingChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.avaliacao = parseInt(input.value);
+}
+
+submitReview(): void {
+  if(!this.selectedMarca || !this.selectedModelo || !this.selectedAno || !this.avaliacao) {
+  alert('Preencha todos os campos antes de enviar!');
+  return;
+}
+
+const carro = this.carros.find(c =>
+  c.marca === this.selectedMarca &&
+  c.modelo === this.selectedModelo &&
+  c.ano === this.selectedAno
+);
+
+if (!carro) {
+  alert('Carro não encontrado.');
+  return;
+}
+
+const formData = new FormData();
+formData.append('carro', String(carro.id)); // ID do carro
+formData.append('avaliacao', String(this.avaliacao));
+formData.append('texto', this.reviewText);  // campo correto para o texto da review
+
+if (this.selectedFile) {
+  formData.append('imagem', this.selectedFile);
+}
+
+this.reviewService.createReview(formData).subscribe({
+  next: res => {
+    alert('Review enviada com sucesso!');
+    this.router.navigate(['home/']);
+  },
+  error: err => {
+    console.error('Erro ao enviar review:', err);
+    alert('Erro ao enviar review. Veja o console para detalhes.');
+  }
+});
   }
 
-  onModeloChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const modeloSelecionado = selectElement.value;
-
-    if (!this.selectedMarca) return;
-
-    this.selectedModelo = modeloSelecionado;
-    this.selectedAno = null;
-    this.anos = [];
-
-    // Filtra os carros com marca e modelo e extrai anos únicos
-    const anosFiltrados = this.carros
-      .filter(c => c.marca === this.selectedMarca && c.modelo === modeloSelecionado)
-      .map(c => c.ano);
-
-    this.anos = [...new Set(anosFiltrados)];
-  }
-
-  onAnoChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const anoSelecionado = +selectElement.value;
-
-    this.selectedAno = isNaN(anoSelecionado) ? null : anoSelecionado;
-
-  }
-
-  onRatingChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.avaliacao = parseInt(input.value);
-  }
-
-  submitReview(): void {
-    if (!this.selectedMarca || !this.selectedModelo || !this.selectedAno || !this.avaliacao) {
-      alert('Preencha todos os campos antes de enviar!');
-      return;
-    }
-
-    const carro = this.carros.find(c =>
-      c.marca === this.selectedMarca &&
-      c.modelo === this.selectedModelo &&
-      c.ano === this.selectedAno
-    );
-
-    if (!carro) {
-      alert('Carro não encontrado.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('carro', String(carro.id)); // ID do carro
-    formData.append('avaliacao', String(this.avaliacao));
-    formData.append('texto', this.reviewText);  // campo correto para o texto da review
-
-    if (this.selectedFile) {
-      formData.append('imagem', this.selectedFile);
-    }
-
-    this.reviewService.createReview(formData).subscribe({
-      next: res => {
-        alert('Review enviada com sucesso!');
-        this.router.navigate(['home/']);
-      },
-      error: err => {
-        console.error('Erro ao enviar review:', err);
-        alert('Erro ao enviar review. Veja o console para detalhes.');
-      }
-    });
-  }
-
-  toNewCar() {
-    this.router.navigate(['/newcar']);
-  }
+toNewCar() {
+  this.router.navigate(['/newcar']);
+}
 }

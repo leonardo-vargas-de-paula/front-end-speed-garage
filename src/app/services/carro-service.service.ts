@@ -25,10 +25,38 @@ export class CarroService {
   ) { }
 
   getCarros(token: string): Observable<CarroResponse> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+
+    let allCarros: Carro[] = [];
+    let nextUrl: string | null = this.apiUrl;
+
+    return new Observable<CarroResponse>(observer => {
+      const fetchNext = (url: string) => {
+        this.http.get<CarroResponse>(url, { headers }).subscribe({
+          next: response => {
+            allCarros.push(...response.results);
+            if (response.next) {
+              fetchNext(response.next);
+            } else {
+              // Monta manualmente um CarroResponse ao final
+              const finalResponse: CarroResponse = {
+                count: allCarros.length,
+                next: null,
+                previous: null,
+                results: allCarros,
+                media_avaliacao: 0 // <-- ou calcule se precisar
+              };
+              observer.next(finalResponse);
+              observer.complete();
+            }
+          },
+          error: err => observer.error(err)
+        });
+      };
+
+      if (nextUrl) fetchNext(nextUrl);
     });
-    return this.http.get<CarroResponse>(this.apiUrl, { headers });
   }
 
   getMarcas(token: string): Observable<string[]> {
