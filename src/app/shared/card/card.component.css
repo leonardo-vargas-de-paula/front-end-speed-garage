@@ -1,7 +1,6 @@
 .card{
-  width: 367px;
-  height: 197px;
-  background-color: #B8B8B8;
+ height: 200px;
+  background-color: #b8b8b8;
   border-radius: 20px;
   margin-bottom: 26px;
   display: flex;
@@ -37,9 +36,12 @@ h2{
 }
 
 span{
-  max-width: 10px;
+  max-width: 350px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-height: 20px;
+  display: inline-block;
 }
+
 
