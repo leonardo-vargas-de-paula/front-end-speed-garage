@@ -3,7 +3,6 @@
 <div class="container">
   <div class="review-card">
     <div class="content">
-    <img *ngIf="review.carro_imagem" [src]="review.carro_imagem" class="review-image" />
     <h1>{{ review.carro_marca }} {{ review.carro_nome }} - {{ review.carro_ano }}</h1>
     <div class="rating">
       Rating: {{ review.avaliacao }} ({{ review.votes }} votes)
@@ -14,6 +13,9 @@
       <p>"{{ review.texto }}"</p>
     </div>
     <a id="botaoVoltar" (click)="voltarHome()"><i class="fa-solid fa-arrow-left" style="color: #ab0302; margin-right: 5px;"></i>BACK TO REVIEWS</a>
+  </div>
+  <div class="carroimagem"> 
+    <img src="{{review.carro_imagem}}" alt="">
   </div>
   </div>
 </div>
