@@ -16,7 +16,8 @@ export interface Review {
   usuario_nome: string;
   carro_nome: string;   // modelo
   carro_marca: string;  // marca (FALTAVA)
-  carro_ano: number;    // ano (FALTAVA)
+  carro_ano: number;   
+  carro_imagem:string; // ano (FALTAVA)
   avaliacao: number;
   texto?: string;
   total_likes?: number;
