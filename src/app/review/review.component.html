@@ -3,7 +3,8 @@
 <div class="container">
   <div class="review-card">
     <div class="content">
-    <h1>{{review.carro_marca}} {{ review.carro_nome }} - {{review.carro_ano}}</h1>
+    <img *ngIf="review.carro_imagem" [src]="review.carro_imagem" class="review-image" />
+    <h1>{{ review.carro_marca }} {{ review.carro_nome }} - {{ review.carro_ano }}</h1>
     <div class="rating">
       Rating: {{ review.avaliacao }} ({{ review.votes }} votes)
     </div>

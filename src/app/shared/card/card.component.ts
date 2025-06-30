@@ -19,6 +19,7 @@ export class CardComponent {
   @Input() texto: string | undefined = '';
   @Input() marca: string | undefined = '';
   @Input() ano: number | undefined = 0;
+  @Input() imagem!: string;
 
   currentUserName: string = '';
   @Output() reviewDeleted = new EventEmitter<number>();
