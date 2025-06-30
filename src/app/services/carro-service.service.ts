@@ -17,18 +17,46 @@ export interface CarroResponse {
 
 @Injectable({ providedIn: 'root' })
 export class CarroService {
-  private apiUrl = 'http://127.0.0.1:8000/api/cars/';
-  //private apiUrl = 'https://speedgarage-web.fly.dev/api/cars/';
+  //private apiUrl = 'http://127.0.0.1:8000/api/cars/';
+  private apiUrl = 'https://speedgarage-backend.up.railway.app/api/cars/';
 
   constructor(private http: HttpClient,
     private authService: AuthService,
   ) { }
 
   getCarros(token: string): Observable<CarroResponse> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+
+    let allCarros: Carro[] = [];
+    let nextUrl: string | null = this.apiUrl;
+
+    return new Observable<CarroResponse>(observer => {
+      const fetchNext = (url: string) => {
+        this.http.get<CarroResponse>(url, { headers }).subscribe({
+          next: response => {
+            allCarros.push(...response.results);
+            if (response.next) {
+              fetchNext(response.next);
+            } else {
+              // Monta manualmente um CarroResponse ao final
+              const finalResponse: CarroResponse = {
+                count: allCarros.length,
+                next: null,
+                previous: null,
+                results: allCarros,
+                media_avaliacao: 0 // <-- ou calcule se precisar
+              };
+              observer.next(finalResponse);
+              observer.complete();
+            }
+          },
+          error: err => observer.error(err)
+        });
+      };
+
+      if (nextUrl) fetchNext(nextUrl);
     });
-    return this.http.get<CarroResponse>(this.apiUrl, { headers });
   }
 
   getMarcas(token: string): Observable<string[]> {

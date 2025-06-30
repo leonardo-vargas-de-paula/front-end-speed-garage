@@ -1,18 +1,17 @@
 <div class="review-container">
-  <ng-container *ngIf="reviews.length > 0; else noReviews">
-    <app-card *ngFor="let review of reviews"
+  <div *ngFor="let review of reviews" class="review-wrapper">
+    <app-card
       [id]="review.id"
       [carModel]="review.carro_nome"
       [rating]="review.avaliacao"
       [votes]="review.total_likes || 0"
       [author]="review.usuario_nome"
       [texto]="review.texto"
-      [ano]="review.carro_ano"
-      [marca]="review.carro_marca">
-    </app-card>
-  </ng-container>
-
-  <ng-template #noReviews>
-    <p>No reviews available</p>
-  </ng-template>
+      [ano]="review.carro_ano "
+      [marca]="review.carro_marca "
+      (reviewDeleted) = "handleReviewDeleted($event)">
+    </app-card>  
+  </div>
 </div>
+
+

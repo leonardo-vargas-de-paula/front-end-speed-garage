@@ -35,8 +35,8 @@ export interface ReviewResponse {
   providedIn: 'root'
 })
 export class ReviewService {
-  //private apiUrl = 'https://speedgarage-web.fly.dev/api/reviews/';
-  private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
+  private apiUrl = 'https://speedgarage-backend.up.railway.app/api/reviews/';
+  //private apiUrl = 'http://127.0.0.1:8000/api/reviews/';
 
   constructor(
     private http: HttpClient,
@@ -74,11 +74,21 @@ export class ReviewService {
   }
 
   getCarros(token: string): Observable<CarroResponse> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  return this.http.get<CarroResponse>(this.apiUrl+'api/cars/', { headers });
-}
+    return this.http.get<CarroResponse>(this.apiUrl + 'api/cars/', { headers });
+  }
+
+  deleteReview(id: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.delete(`${this.apiUrl}${id}/`, { headers });
+  }
+
 
 }
