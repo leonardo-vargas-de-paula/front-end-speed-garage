@@ -3,7 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
 # Deploy do front end
-Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/). Atualmente sem funcionalidades de banco, mas funciona se inicializar o json-server localmente (mais explicações adiante).
+Deploy feito na -> [Vercel](https://front-end-speed-garage.vercel.app/). Atualmente está com funcionalidades de banco.
 
 # Link do repositório
 
@@ -11,33 +11,15 @@ Deploy feito na [Vercel](https://front-end-speed-garage.vercel.app/). Atualmente
 
 # Banco
 
-Atualmente o protótipo está utilizando [json-server](https://www.npmjs.com/package/json-server) para realizar o teste e implementação de algumas funcionalidades.
+Atualmente o protótipo está utilizando um serviço PostgreSQL e Backend em Django hospedado na Railway.
 
-Utilize o comando a seguir para inicializar a API fake:
+# Sobre o site
 
-```bash
-npx json-server --watch db.json
-```
+Para entrar e ver as reviews primeiramente é necessário criar uma conta ou logar caso tenha já tenha uma conta.
 
-# Servidor local
+Ao entra será possível navegar entre as reviews dos usuários.
 
-Caso queira iniciar um server local para visualizar o projeto, utilize o seguinte comando:
+Caso queira criar um review clique em "new review" e selecione o carro com base em marca/modelo/ano.
 
-```bash
-ng serve
-```
+Se não encontrar o modelo desejado, pode adicionar ele inserindo as informações de marca, modelo e ano.
 
-# Possíveis erros
-
-Caso o json server não funcione mesmo rodando o projeto localmente pode-se trocar a porta que ele utiliza:
-
-```bash
-npx json-server --watch db.json --port <PORTA>
-```
-E troque a porta na url em review.service.ts:
-
-```bash
-private apiUrl = 'http://localhost:<PORTA>/review';
-```
-
-Se mesmo assim não funcionar, pare de rodar o programa, feche a IDE que está utilizando e inicie novamente o banco de dados e o projeto.
