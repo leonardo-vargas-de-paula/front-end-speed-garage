@@ -85,3 +85,12 @@ p{
   border-radius: 8px;
 }
 
+.carroimagem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img{
+  max-width: 450px;
+}
