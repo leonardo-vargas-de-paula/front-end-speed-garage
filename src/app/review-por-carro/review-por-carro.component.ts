@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+// src/app/review-por-carro/review-por-carro.component.ts
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ReviewService, Review } from '../review.service';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../shared/header/header.component";
+import { HeaderComponent } from '../shared/header/header.component';
 import { ReviewListComponent } from '../review-list/review-list.component';
+import { ReviewService, Review } from '../review.service';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-review-por-carro',
@@ -12,28 +14,36 @@ import { ReviewListComponent } from '../review-list/review-list.component';
   templateUrl: './review-por-carro.component.html',
   styleUrl: './review-por-carro.component.css'
 })
-export class ReviewPorCarroComponent {
+export class ReviewPorCarroComponent implements OnDestroy {
   reviews: Review[] = [];
-  marca = '';
+  marca  = '';
   modelo = '';
-  ano = '';
+  ano    = '';
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
     private reviewService: ReviewService
-  ) { }
+  ) {}
 
- ngOnInit(): void {
-  this.marca = this.route.snapshot.paramMap.get('marca') || '';
-  this.modelo = this.route.snapshot.paramMap.get('modelo') || '';
-  this.ano = this.route.snapshot.paramMap.get('ano') || '';
+  ngOnInit(): void {
+    this.route.paramMap
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(params => {
+          // lê parâmetros SEM refresh
+          this.marca  = params.get('marca')  ?? '';
+          this.modelo = params.get('modelo') ?? '';
+          this.ano    = params.get('ano')    ?? '';
 
-  this.reviewService.getReviews().subscribe(response => {
-    this.reviews = response.results.filter(r =>
-      r.carro_marca.toLowerCase() === this.marca.toLowerCase() &&
-      r.carro_nome.toLowerCase() === this.modelo.toLowerCase() &&
-      r.carro_ano.toString() === this.ano
-    );
-  });
-}
+          // consulta filtrada direto na API
+          return this.reviewService.getReviews(
+            `?carro_marca=${this.marca}&carro_modelo=${this.modelo}&carro_ano=${this.ano}`
+          );
+        })
+      )
+      .subscribe(resp => (this.reviews = resp.results));
+  }
+
+  ngOnDestroy() { this.destroy$.next(); }
 }

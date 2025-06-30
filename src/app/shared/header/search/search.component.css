@@ -71,6 +71,7 @@
 .dropdown li {
   padding: .5rem .75rem;
   cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .dropdown li:hover {

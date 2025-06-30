@@ -16,8 +16,8 @@ export interface Review {
   usuario_nome: string;
   carro_nome: string;   // modelo
   carro_marca: string;  // marca (FALTAVA)
-  carro_ano: number;   
-  carro_imagem:string; // ano (FALTAVA)
+  carro_ano: number;
+  carro_imagem: string; // ano (FALTAVA)
   avaliacao: number;
   texto?: string;
   total_likes?: number;
@@ -46,8 +46,15 @@ export class ReviewService {
 
 
 
-  getReviews(): Observable<ReviewResponse> {
-    return this.http.get<ReviewResponse>(this.apiUrl);
+  // 1) assinatura sem parâmetros (continua igual)
+  getReviews(): Observable<ReviewResponse>;
+
+  // 2) assinatura opcional com query
+  getReviews(query: string): Observable<ReviewResponse>;
+
+  // 3) implementação única
+  getReviews(query: string = ''): Observable<ReviewResponse> {
+    return this.http.get<ReviewResponse>(`${this.apiUrl}${query}`);
   }
 
   getFullReview(id: number): Observable<Review> {
