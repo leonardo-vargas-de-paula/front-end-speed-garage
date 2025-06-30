@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Carro } from '../models/carro.model';
 import { AuthService } from '../auth.service';
 
@@ -90,8 +90,19 @@ export class CarroService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    
+
     return this.http.get<Carro[]>(`${this.apiUrl}top/?n=${n}`, { headers });
+  }
+
+  search(term: string, token = ''): Observable<Carro[]> {
+    if (!term.trim()) return of([]);
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : undefined;
+    return this.http.get<CarroResponse>(
+      `${this.apiUrl}?search=${encodeURIComponent(term)}`,
+      { headers }
+    ).pipe(map(r => r.results));
   }
 
 }
