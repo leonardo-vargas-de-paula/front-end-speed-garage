@@ -16,7 +16,9 @@
           style="color: #ab0302; margin-right: 5px;"></i>BACK TO REVIEWS</a>
     </div>
     <div class="carroimagem">
-      <img [src]="review.carro_imagem" alt="Imagem do carro" class="car-img" />
+      @if (review.carro_imagem) {
+        <img [src]="review.carro_imagem" alt="Imagem do carro" class="car-img" />
+      }
     </div>
   </div>
 </div>
