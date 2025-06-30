@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { SearchComponent } from "./search/search.component";
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [SearchComponent],
+  imports: [CommonModule,SearchComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
