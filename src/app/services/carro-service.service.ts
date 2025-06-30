@@ -90,6 +90,7 @@ export class CarroService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    
     return this.http.get<Carro[]>(`${this.apiUrl}top/?n=${n}`, { headers });
   }
 
