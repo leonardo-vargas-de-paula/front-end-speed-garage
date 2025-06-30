@@ -1,13 +1,17 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
 import { Subject, takeUntil, debounceTime, switchMap } from 'rxjs';
 import { CarroService } from '../../../services/carro-service.service';
 import { Carro } from '../../../models/carro.model';
 import { AuthService } from '../../../auth.service';
+import { RouterModule } from '@angular/router';     
+
 
 @Component({
   selector: 'app-search',
   standalone: true,
+  imports: [CommonModule, RouterModule],            
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
