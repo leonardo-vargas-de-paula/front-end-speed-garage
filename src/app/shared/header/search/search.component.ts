@@ -46,4 +46,10 @@ export class SearchComponent implements OnDestroy {
   }
 
   ngOnDestroy() { this.destroy$.next(); }
+
+  onSubmit(term: string) {
+    this.buscar(term);              
+    event?.preventDefault();        
+  }
+
 }
