@@ -14,7 +14,6 @@
         [routerLink]="['/reviews', car.marca, car.modelo, car.ano]"
         style="cursor: pointer">
         <img [src]="car.imagem" alt="{{car.marca}} {{car.modelo}}" class="car-thumbnail" />
-        <h2>{{ car.marca }} {{ car.modelo }} - {{ car.ano }}</h2>
         <span *ngIf="i === 0">🥇</span>
         <span *ngIf="i === 1">🥈</span>
         <span *ngIf="i === 2">🥉</span>
