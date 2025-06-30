@@ -31,15 +31,14 @@ export class ReviewPorCarroComponent implements OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         switchMap(params => {
-          // lê parâmetros SEM refresh
           this.marca  = params.get('marca')  ?? '';
           this.modelo = params.get('modelo') ?? '';
           this.ano    = params.get('ano')    ?? '';
 
-          // consulta filtrada direto na API
-          return this.reviewService.getReviews(
-            `?carro_marca=${this.marca}&carro_modelo=${this.modelo}&carro_ano=${this.ano}`
-          );
+
+          return this.reviewService.getReviewsFiltered(
+  `?carro_marca=${this.marca}&carro_modelo=${this.modelo}&carro_ano=${this.ano}`
+);
         })
       )
       .subscribe(resp => (this.reviews = resp.results));
