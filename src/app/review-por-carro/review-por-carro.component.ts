@@ -1,11 +1,9 @@
-// src/app/review-por-carro/review-por-carro.component.ts
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../shared/header/header.component';
-import { ReviewListComponent } from '../review-list/review-list.component';
 import { ReviewService, Review } from '../review.service';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../shared/header/header.component";
+import { ReviewListComponent } from '../review-list/review-list.component';
 
 @Component({
   selector: 'app-review-por-carro',
@@ -14,35 +12,28 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
   templateUrl: './review-por-carro.component.html',
   styleUrl: './review-por-carro.component.css'
 })
-export class ReviewPorCarroComponent implements OnDestroy {
+export class ReviewPorCarroComponent {
   reviews: Review[] = [];
-  marca  = '';
+  marca = '';
   modelo = '';
-  ano    = '';
-  private destroy$ = new Subject<void>();
+  ano = '';
 
   constructor(
     private route: ActivatedRoute,
     private reviewService: ReviewService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap(params => {
-          this.marca  = params.get('marca')  ?? '';
-          this.modelo = params.get('modelo') ?? '';
-          this.ano    = params.get('ano')    ?? '';
+ ngOnInit(): void {
+  this.marca = this.route.snapshot.paramMap.get('marca') || '';
+  this.modelo = this.route.snapshot.paramMap.get('modelo') || '';
+  this.ano = this.route.snapshot.paramMap.get('ano') || '';
 
-
-          return this.reviewService.getReviewsFiltered(
-  `?carro_marca=${this.marca}&carro_modelo=${this.modelo}&carro_ano=${this.ano}`
-);
-        })
-      )
-      .subscribe(resp => (this.reviews = resp.results));
-  }
-
-  ngOnDestroy() { this.destroy$.next(); }
+  this.reviewService.getReviews().subscribe(response => {
+    this.reviews = response.results.filter(r =>
+      r.carro_marca.toLowerCase() === this.marca.toLowerCase() &&
+      r.carro_nome.toLowerCase() === this.modelo.toLowerCase() &&
+      r.carro_ano.toString() === this.ano
+    );
+  });
+}
 }
